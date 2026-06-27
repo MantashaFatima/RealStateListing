@@ -56,7 +56,6 @@ export default function PropertyCarousel() {
                 {item.tag}
               </span>
               <div className="absolute bottom-4 left-4 right-4 text-white">
-                <p className="text-[16px] font-bold">{item.price}</p>
                 <p className="text-[13px] text-white/85">{item.title}</p>
               </div>
             </div>
