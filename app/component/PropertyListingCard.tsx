@@ -1,12 +1,30 @@
 import Image from "next/image";
 
-export default function PropertyListingCard() {
+export default function PropertyListingCard({
+  image,
+  price,
+  title,
+  beds,
+  baths,
+  sqft,
+  agent,
+  agentImage,
+}: {
+  image: string;
+  price: string;
+  title: string;
+  beds: number;
+  baths: number;
+  sqft: string;
+  agent: string;
+  agentImage: string;
+}) {
   return (
     <div className="overflow-hidden rounded-lg bg-white shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
       <div className="relative h-[200px]">
         <Image
-          src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80"
-          alt="92 Allium Place"
+          src={image}
+          alt={title}
           fill
           className="object-cover"
         />
@@ -14,28 +32,28 @@ export default function PropertyListingCard() {
 
       <div className="p-5">
         <h3 className="mb-2 text-[13px] font-bold uppercase leading-snug tracking-wide text-[#1e293b]">
-          92 ALLIUM PLACE, ORLANDO FL 32827
+          {title}
         </h3>
-        <p className="mb-4 text-[18px] font-bold text-[#3563e9]">$ 590,693</p>
+        <p className="mb-4 text-[18px] font-bold text-[#3563e9]">{price}</p>
 
         <div className="mb-5 flex items-center gap-5 text-[13px] text-[#64748b]">
           <span className="flex items-center gap-1.5">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M3 10v11M21 10v11M3 10l9-6 9 6M7 21V14h10v7" />
             </svg>
-            4
+            {beds}
           </span>
           <span className="flex items-center gap-1.5">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M4 12h16M6 12V8a2 2 0 012-2h8a2 2 0 012 2v4M6 20v-4h12v4" />
             </svg>
-            4
+            {baths}
           </span>
           <span className="flex items-center gap-1.5">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <rect x="3" y="3" width="18" height="18" rx="2" />
             </svg>
-            2,096.00 ft
+            {sqft}
           </span>
         </div>
 
@@ -43,13 +61,13 @@ export default function PropertyListingCard() {
           <div className="flex items-center gap-2.5">
             <div className="relative h-8 w-8 overflow-hidden rounded-full">
               <Image
-                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&q=80"
-                alt="Jenny Wilson"
+                src={agentImage}
+                alt={agent}
                 fill
                 className="object-cover"
               />
             </div>
-            <span className="text-[13px] font-medium text-[#1e293b]">Jenny Wilson</span>
+            <span className="text-[13px] font-medium text-[#1e293b]">{agent}</span>
           </div>
 
           <div className="flex items-center gap-2">

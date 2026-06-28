@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 
 function Logo({ light = false, subtitle = false }: { light?: boolean; subtitle?: boolean }) {
@@ -52,12 +55,14 @@ export default function Header({
   showSearch?: boolean;
   subtitle?: boolean;
 }) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <header className="bg-[#1e293b]">
       <div className="mx-auto flex max-w-[1170px] items-center justify-between px-4 py-4">
         <Logo light={true} subtitle={subtitle} />
 
-        <nav className="hidden items-center gap-5 xl:flex">
+        <nav className="hidden items-center gap-5 lg:flex">
           {NAV_LINKS.map((link) => {
             const isActive = activePage === link.label;
             return (
@@ -73,9 +78,73 @@ export default function Header({
             );
           })}
         </nav>
+
+        <button
+          className="lg:hidden flex flex-col items-center justify-center gap-1.5 p-2"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          <span
+            className={`block w-6 h-0.5 bg-white transition-all ${
+              mobileMenuOpen ? "rotate-45 translate-y-2" : ""
+            }`}
+          />
+          <span
+            className={`block w-6 h-0.5 bg-white transition-all ${
+              mobileMenuOpen ? "opacity-0" : ""
+            }`}
+          />
+          <span
+            className={`block w-6 h-0.5 bg-white transition-all ${
+              mobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
+            }`}
+          />
+        </button>
       </div>
 
-      <div className="mx-auto hidden max-w-[1170px] items-center gap-6 border-t border-white/10 px-4 py-3 xl:flex">
+      {mobileMenuOpen && (
+        <nav className="lg:hidden border-t border-white/10 bg-[#1e293b]">
+          <div className="mx-auto max-w-[1170px] px-4 py-4">
+            <div className="flex flex-col gap-3">
+              {NAV_LINKS.map((link) => {
+                const isActive = activePage === link.label;
+                return (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    className={`text-[14px] font-medium tracking-wide ${
+                      isActive ? "text-[#3563e9]" : "text-white/90"
+                    }`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
+            </div>
+
+            <div className="mt-6 pt-4 border-t border-white/10">
+              <span className="text-[12px] font-medium text-white/60 block mb-3">
+                Categories:
+              </span>
+              <div className="flex flex-wrap gap-3">
+                {CATEGORIES.map((category) => (
+                  <Link
+                    key={category.label}
+                    href={category.href}
+                    className="text-[12px] font-medium text-white/80 hover:text-white transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {category.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        </nav>
+      )}
+
+      <div className="mx-auto hidden max-w-[1170px] items-center gap-6 border-t border-white/10 px-4 py-3 lg:flex">
         <span className="text-[12px] font-medium text-white/60">Categories:</span>
         {CATEGORIES.map((category) => (
           <Link
